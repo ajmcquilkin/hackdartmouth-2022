@@ -1,4 +1,5 @@
 import { response } from "express";
+import { RequestHandler } from 'express';
 
 type Settings = {
     location: string;
@@ -63,4 +64,19 @@ function combine_list(combined: any[]) {
     return combined.flatMap(response => response.businesses).slice(0,global_limit);
 }
 
-handle_response(ex_response);
+
+export const createRoom: RequestHandler = async (req, res, next) => {
+    try {
+
+        const message = await setJSON<IRoom>(roomId, {
+            id: roomId,
+            hostId: "adam",
+            participants: [ "one", "two" ],
+            restaurants: []
+        });
+
+        res.json({ message, id: roomId });
+    } catch (error) {
+        next(error);
+    }
+};
