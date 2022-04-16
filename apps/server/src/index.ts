@@ -28,11 +28,11 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended:true }));
 app.use(bodyParser.json());
 
-app.get("/", (req,res) => {
+app.get("/", (req, res) => {
     res.send("Welcome to the backend!");
 });
 
-app.use((req,res)=>{
+app.use((req, res)=>{
     res.status(404).json({ message:"Page not found"});
 });
 
