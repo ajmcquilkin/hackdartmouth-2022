@@ -1,8 +1,18 @@
-import * as React from "react";
+import React, { useState } from "react";
 import styles from "./selection.module.scss";
 import { Button, Ranking } from "ui";
 
 export const Selection = (props: any) => {
+  const [selection, setSelection] = useState(0);
+
+  const getSelection = (props: any) => {
+    setSelection(props);
+    console.log(selection);
+  
+    // Go to next selection
+    // GET RESULTS HERE
+  }
+
   return(
     <div className={styles.page}>
         <header className={styles.header}>
@@ -20,8 +30,9 @@ export const Selection = (props: any) => {
         <Button
                 text="Veto"
                 backgroundColor= "lightred"
-                onClick={()=> console.log("Join Room")}/> 
-            <Ranking/>
+                /> 
+            <Ranking
+              getRank={getSelection}/>
     </div>
   )
 };

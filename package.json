@@ -13,6 +13,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@types/react": "^18.0.5",
     "prettier": "^2.5.1",
     "sass": "^1.50.0",
     "turbo": "latest"
