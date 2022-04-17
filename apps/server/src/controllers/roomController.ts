@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import { v4 as uuid } from 'uuid';
 import { IRoom, IRestaurant } from 'schema';
 
-import { redisClient, getJSON, setJSON } from '../redisClient';
+import { getJSON, setJSON } from '../redisClient';
 
 // export const getAllRooms: RequestHandler = async (req, res, next) => {
 //     try {
@@ -22,7 +22,7 @@ export const createRoom: RequestHandler = async (req, res, next) => {
     try {
         const roomId = uuid();
 
-        const message = await setJSON<IRoom>(roomId, { 
+        const message = await setJSON<IRoom>(roomId, {
             id: roomId,
             hostId: "adam",
             participants: [ "one", "two" ],
@@ -64,7 +64,7 @@ export const joinRoom: RequestHandler = async (req, res, next) => {
 
 // export const updateRoomById: RequestHandler = async (req, res, next) => {
 //     try {
-        
+
 //     } catch (error) {
 //         next(error);
 //     }
@@ -72,7 +72,7 @@ export const joinRoom: RequestHandler = async (req, res, next) => {
 
 // export const deleteRoomById: RequestHandler = async (req, res, next) => {
 //     try {
-        
+
 //     } catch (error) {
 //         next(error);
 //     }
