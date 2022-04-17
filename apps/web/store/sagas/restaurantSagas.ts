@@ -9,6 +9,8 @@ import { selectStatus, typedPut as put } from "./helpers";
 
 
 function* fetchRestaurantsWorker(action: FetchRestaurantsRequest) {
+    if (action.status !== 'REQUEST') return;
+    
     try {
         const result: IRestaurant[] = yield call(restaurantService.fetchRestaurants);
         yield put(fetchRestaurantsSuccess(result));
@@ -18,6 +20,8 @@ function* fetchRestaurantsWorker(action: FetchRestaurantsRequest) {
 }
 
 function* reviewRestaurantWorker(action: ReviewRestaurantRequest) {
+    if (action.status !== 'REQUEST') return;
+    
     try {
         const result: IRestaurant = yield call(restaurantService.reviewRestaurant, action.roomId, action.restaurant);
         yield put(reviewRestaurantSuccess(result));
@@ -27,10 +31,10 @@ function* reviewRestaurantWorker(action: ReviewRestaurantRequest) {
 }
 
 function* roomSaga() {
-//     yield all([
-//         takeLatest(selectStatus('FETCH_RESTAURANTS'), fetchRestaurantsWorker),
-//         takeLatest(selectStatus('REVIEW_RESTAURANT'), reviewRestaurantWorker),
-//     ]);
+    yield all([
+        takeLatest('FETCH_RESTAURANTS', fetchRestaurantsWorker),
+        takeLatest('REVIEW_RESTAURANT', reviewRestaurantWorker),
+    ]);
 }
 
 export default roomSaga;
