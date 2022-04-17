@@ -17,7 +17,7 @@ export const Selection = (props: any) => {
                 <p className={styles.trait}>{props.price}</p>
             </div>
             {/* <p className={styles.trait}>Allergies</p> */}
-                <img style={{borderRadius: '10px', maxHeight:'14em', overflow:'true'}}src={props.imageUrl} alt={'image'}/>
+                <img style={{objectFit:"cover", borderRadius: '10px', maxHeight:'14em', overflow:'true'}}src={props.imageUrl} alt={'image'}/>
         </div>
           <Button
                 text="Veto"
