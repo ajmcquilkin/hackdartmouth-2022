@@ -67,7 +67,7 @@ export const Onboard = () => {
 
             <Button
                 text="Submit"
-                onClick={()=> console.log("Submitted")}/>
+                onClick={handleSubmit}/>
         </div>
     </div>
   )
