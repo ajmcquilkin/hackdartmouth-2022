@@ -16,10 +16,16 @@ export default function Group() {
   useEffect(() => {
     if (done) router.push("/results");
   }, [done, router]);
+
+  const handleGameEdit = () => {
+    router.push("/onboard");
+  }
   
   return (
     <div>
       <h1>Web</h1>
+      <Button text="Edit Game"
+          onClick={handleGameEdit} />
       <button type="button" onClick={() => {dispatch(hostStartRequest())}}>sadfjasdf</button>
       {started 
         ? <p>started</p>

@@ -31,7 +31,12 @@ export const createRoom: RequestHandler = async (req, res, next) => {
             id: roomId,
             hostId: hostId,
             participants: [],
-            restaurants: []
+            restaurants: [],
+            reviews: [],
+            foodPref: "",
+            location: "",
+            maxChoices: 10,
+            price: 2
         };
 
         await setJSON<IRoom>(roomId, room);
@@ -69,13 +74,21 @@ export const joinRoom: RequestHandler = async (req, res, next) => {
     }
 };
 
-// export const updateRoomById: RequestHandler = async (req, res, next) => {
-//     try {
-
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+export const updateRoomById: RequestHandler = async (req, res, next) => {
+    try {
+        try {
+            const { room } = req.body;
+            if (!room) { res.status(400).send("Bad request"); return; }
+    
+            await setJSON<IRoom>(req.params.id, room);
+            res.json({ room });
+        } catch (error) {
+            next(error);
+        }
+    } catch (error) {
+        next(error);
+    }
+};
 
 // export const deleteRoomById: RequestHandler = async (req, res, next) => {
 //     try {

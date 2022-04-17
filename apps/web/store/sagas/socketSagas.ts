@@ -15,7 +15,7 @@ function* hostStartWorker(action: HostStartRequest, socket: Socket) {
     if (action.status !== 'REQUEST') return;
 
     try {
-        yield call(socketService.hostStart, socket);
+        yield call(socketService.hostStart, socket, action.roomId);
         console.log("start saga after")
         yield put(hostStartSuccess());
     } catch (error) {

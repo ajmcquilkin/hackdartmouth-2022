@@ -47,7 +47,7 @@ export const Home = () => {
 
         <Button
           text="Join"
-          onClick={()=> {handleSubmit}}/>
+          onClick={handleSubmit}/>
 
         <Input
           title="Host Username"

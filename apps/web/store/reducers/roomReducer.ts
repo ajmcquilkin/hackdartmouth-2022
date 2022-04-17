@@ -43,7 +43,9 @@ const reducer = (state = initialState, action: Actions): IRoomReducerState => {
                 }
             });
         case "CREATE_ROOM":
+        case "UPDATE_ROOM":
         case "JOIN_ROOM":
+            console.log('action', action.room);
             return ({
                 ...state,
                 currentRoom: action.room,

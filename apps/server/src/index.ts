@@ -8,7 +8,6 @@ import cors from 'cors';
 import roomRouter from 'routers/roomRouter';
 import yelpRouter from 'routers/yelpRouter';
 import { createSocketServer, socketServer } from 'socketClient';
-import { RESERVED_EVENTS } from 'socket.io/dist/socket';
 
 // General initialization
 
