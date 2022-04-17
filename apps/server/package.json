@@ -17,7 +17,6 @@
     "morgan": "^1.10.0",
     "redis": "^4.0.6",
     "schema": "*",
-    "socket.io": "^4.4.1",
     "uuid": "^8.3.2",
     "yelp-fusion": "^3.0.0"
   },

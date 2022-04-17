@@ -1,21 +1,19 @@
 import express from 'express';
-import { createServer } from 'http';
-import { Server } from 'socket.io';
 
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 
-import roomRouter from 'routers/roomRouter'
-import yelpRouter from 'routers/yelpRouter'
+import roomRouter from 'routers/roomRouter';
+import yelpRouter from 'routers/yelpRouter';
+import { createSocketServer, socketServer } from 'socketClient';
 
 // General initialization
 
 dotenv.config();
 
 const app = express();
-const httpServer = createServer(app);
-const socketServer = new Server(httpServer);
+createSocketServer(app);
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended:true }));

@@ -27,10 +27,10 @@ function* reviewRestaurantWorker(action: ReviewRestaurantRequest) {
 }
 
 function* roomSaga() {
-    yield all([
-        takeLatest(selectStatus('FETCH_RESTAURANTS'), fetchRestaurantsWorker),
-        takeLatest(selectStatus('REVIEW_RESTAURANT'), reviewRestaurantWorker),
-    ]);
+    // yield all([
+    //     takeLatest(selectStatus('FETCH_RESTAURANTS'), fetchRestaurantsWorker),
+    //     takeLatest(selectStatus('REVIEW_RESTAURANT'), reviewRestaurantWorker),
+    // ]);
 }
 
 export default roomSaga;

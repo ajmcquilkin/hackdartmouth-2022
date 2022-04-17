@@ -27,10 +27,10 @@ function* joinRoomWorker(action: JoinRoomRequest) {
 }
 
 function* roomSaga() {
-    yield all([
-        takeLatest(selectStatus('FETCH_ROOM'), fetchRoomWorker),
-        takeLatest(selectStatus('JOIN_ROOM'), fetchRoomWorker),
-    ]);
+    // yield all([
+    //     takeLatest(selectStatus('FETCH_ROOM'), fetchRoomWorker),
+    //     takeLatest(selectStatus('JOIN_ROOM'), fetchRoomWorker),
+    // ]);
 }
 
 export default roomSaga;

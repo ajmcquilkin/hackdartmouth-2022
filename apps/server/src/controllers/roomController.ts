@@ -1,8 +1,12 @@
 import { RequestHandler } from 'express';
 import { v4 as uuid } from 'uuid';
 import { IRoom, IRestaurant } from 'schema';
+import { HostStartEvent, UserJoinLobbyEvent, UserJoinLobbyPayload } from "schema/src/sockets";
 
 import { getJSON, setJSON } from '../redisClient';
+
+import { socketServer } from 'socketClient';
+import "schema";
 
 // export const getAllRooms: RequestHandler = async (req, res, next) => {
 //     try {
@@ -54,6 +58,7 @@ export const joinRoom: RequestHandler = async (req, res, next) => {
         let message = "NO CHANGE";
         if (!room.participants.includes(uid)) {
             message = await setJSON<IRoom>(req.params.id, { ...room, participants: [...room.participants, uid] });
+            socketServer.emit(HostStartEvent, uid);
         }
 
         res.json({ message });
