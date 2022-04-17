@@ -33,6 +33,8 @@ services:
       context: .
       target: dev_web
     restart: unless-stopped
+    env_file:
+      - "./apps/web/.env.local"
     ports:
       - "3000:3000"
     volumes:
@@ -44,6 +46,8 @@ services:
       context: .
       target: prod_web
     restart: unless-stopped
+    environment:
+      - SERVER_LOCAL=false
     ports:
       - "3000:3000"
     image: us-east4-docker.pkg.dev/sodium-cat-347501/test-client/web
