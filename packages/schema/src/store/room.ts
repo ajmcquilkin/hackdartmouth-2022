@@ -20,7 +20,7 @@ export type FetchRoomRequest = AppActionBase<typeof FETCH_ROOM, 'REQUEST'> & { r
 export type FetchRoomSuccess = AppActionBase<typeof FETCH_ROOM, 'SUCCESS'> & { room: IRoom };
 export type FetchRoomFailure = AppActionBase<typeof FETCH_ROOM, 'FAILURE'> & { message: string };
 
-export type JoinRoomRequest = AppActionBase<typeof JOIN_ROOM, 'REQUEST'> & { roomId: string };
+export type JoinRoomRequest = AppActionBase<typeof JOIN_ROOM, 'REQUEST'> & { roomId: string, uid: string };
 export type JoinRoomSuccess = AppActionBase<typeof JOIN_ROOM, 'SUCCESS'> & { room: IRoom };
 export type JoinRoomFailure = AppActionBase<typeof JOIN_ROOM, 'FAILURE'> & { message: string };
 

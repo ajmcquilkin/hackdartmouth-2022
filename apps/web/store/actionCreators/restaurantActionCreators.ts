@@ -5,26 +5,27 @@ import {
 
 import { IRestaurant } from "schema";
 
-export const fetchRestaurantRequest = (): FetchRestaurantsRequest => ({
+export const fetchRestaurantsRequest = (): FetchRestaurantsRequest => ({
     type: "FETCH_RESTAURANTS",
     status: "REQUEST"
 });
 
-export const fetchRestaurantSuccess = (restaurants: IRestaurant[]): FetchRestaurantsSuccess => ({
+export const fetchRestaurantsSuccess = (restaurants: IRestaurant[]): FetchRestaurantsSuccess => ({
     type: "FETCH_RESTAURANTS",
     status: "SUCCESS",
     restaurants
 });
 
-export const fetchRestaurantFailure = (message: string): FetchRestaurantsFailure => ({
+export const fetchRestaurantsFailure = (message: string): FetchRestaurantsFailure => ({
     type: "FETCH_RESTAURANTS",
     status: "FAILURE",
     message
 });
 
-export const reviewRestaurantRequest = (restaurant: IRestaurant): ReviewRestaurantRequest => ({
+export const reviewRestaurantRequest = (roomId: string, restaurant: IRestaurant): ReviewRestaurantRequest => ({
     type: "REVIEW_RESTAURANT",
     status: "REQUEST",
+    roomId,
     restaurant
 });
 

@@ -23,10 +23,11 @@ export const fetchRoomFailure = (message: string): FetchRoomFailure => ({
     message
 });
 
-export const joinRoomRequest = (roomId: string): JoinRoomRequest => ({
+export const joinRoomRequest = (roomId: string, uid: string): JoinRoomRequest => ({
     type: "JOIN_ROOM",
     status: "REQUEST",
-    roomId
+    roomId,
+    uid
 });
 
 export const joinRoomSuccess = (room: IRoom): JoinRoomSuccess => ({
