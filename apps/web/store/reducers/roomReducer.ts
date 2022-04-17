@@ -7,9 +7,34 @@ const initialState: IRoomReducerState = {
 
 const reducer = (state = initialState, action: Actions): IRoomReducerState => {
     if (action.status !== "SUCCESS") return state;
-    
+
     switch (action.type) {
+        case "VOTING_DONE":
+            return ({
+                ...state,
+                currentRoom: state.currentRoom ? {
+                    ...state.currentRoom,
+                    results: true,
+                } : null
+            });
+        case "USER_DONE":
+            return ({
+                ...state,
+                currentRoom: state.currentRoom ? {
+                    ...state.currentRoom,
+                    done: true,
+                } : null
+            });
+        case "HOST_START":
+            return ({
+                ...state,
+                currentRoom: state.currentRoom ? {
+                    ...state.currentRoom,
+                    started: true
+                } : null
+            });
         case "FETCH_ROOM":
+            // 59c0ab38-032f-40a5-9d23-45dbacfddb8e
             return ({
                 ...state,
                 rooms: {
@@ -17,20 +42,18 @@ const reducer = (state = initialState, action: Actions): IRoomReducerState => {
                     [action.room.id]: action.room
                 }
             });
-            break;
+        case "CREATE_ROOM":
         case "JOIN_ROOM":
             return ({
                 ...state,
+                currentRoom: action.room,
                 rooms: {
                     ...state.rooms,
                     [action.room.id]: action.room
-                },
-                currentRoom: action.room
+                }
             });
-            break;
         default:
             return state;
-            break;
     }
 };
 

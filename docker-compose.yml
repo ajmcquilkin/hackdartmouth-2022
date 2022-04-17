@@ -9,7 +9,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - "./apps/server/src:/app/src"
+      - "./apps/server/src:/app/server/src"
     env_file:
       - "./apps/server/.env"
 
@@ -17,7 +17,7 @@ services:
     profiles: ["prod_server"]
     build:
       context: .
-      target: dev_server
+      target: prod_server
     restart: unless-stopped
     ports:
       - "80:80"
@@ -25,4 +25,25 @@ services:
       - "./apps/server/.env"
     environment:
       - PORT=80
-    image: jeffzyliu/hackdartmouth-2022-server
+    image: us-east4-docker.pkg.dev/sodium-cat-347501/test-server/server
+
+  dev_web:
+    profiles: ["dev_web"]
+    build:
+      context: .
+      target: dev_web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./apps/web/src:/app/web/src"
+
+  prod_web:
+    profiles: ["prod_web"]
+    build:
+      context: .
+      target: prod_web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    image: us-east4-docker.pkg.dev/sodium-cat-347501/test-client/web

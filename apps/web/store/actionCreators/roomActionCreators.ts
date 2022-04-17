@@ -1,9 +1,28 @@
 import { 
     FetchRoomRequest, FetchRoomSuccess, FetchRoomFailure,
-    JoinRoomRequest, JoinRoomSuccess, JoinRoomFailure
+    JoinRoomRequest, JoinRoomSuccess, JoinRoomFailure,
+    CreateRoomRequest, CreateRoomSuccess, CreateRoomFailure
 } from "schema/src/store/room";
 
 import { IRoom } from "schema";
+
+export const createRoomRequest = (hostId: string): CreateRoomRequest => ({
+    type: "CREATE_ROOM",
+    status: "REQUEST",
+    hostId
+});
+
+export const createRoomSuccess = (room: IRoom): CreateRoomSuccess => ({
+    type: "CREATE_ROOM",
+    status: "SUCCESS",
+    room,
+});
+
+export const createRoomFailure = (message: string): CreateRoomFailure => ({
+    type: "CREATE_ROOM",
+    status: "FAILURE",
+    message
+});
 
 export const fetchRoomRequest = (roomId: string): FetchRoomRequest => ({
     type: "FETCH_ROOM",

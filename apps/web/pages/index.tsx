@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from 'next/link';
-import { Home } from "../components/home1/home"
+import { useDispatch } from "react-redux";
+import { createRoomRequest } from "../store/actionCreators/roomActionCreators";
+import { useRouter } from "next/router";
 
 export default function Web() {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const [hostId, setHostId] = useState<string>("");
+
+  const handleCreateRoom = () => {
+    if (!hostId) return;
+    dispatch(createRoomRequest(hostId));
+    router.push("/create");
+  };
   
   return (
-    <div style={{width:''}}>
-      {/* <div > */}
-        {/* <div style={{position: "absolute",
-  backgroundColor: "rgba(0,0,0,.4)", overflow: "hidden", top:0, right:0, height: "100%", width:"100%" }}></div> */}
-            {/* <img
-            src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" 
-            alt="{props.name}"/> */}
-            
-      {/* </div> */}
-      
-      <Home/>
+    <div className="home">
+      <h1>Web</h1>
+      <Link href="/join">
+        <a>Join room</a>
+      </Link>
+      <input value={hostId} onChange={(e) => setHostId(e.target.value)} />
+      <button type="button" onClick={handleCreateRoom}>Create Room</button>
     </div>
   );
 }
