@@ -4,6 +4,8 @@ import { RankCard } from "ui";
 
 export const Result = (props: any) => {
   let ranks =['1st', '2nd', '3rd']
+
+  
   return(
     <div className={styles.page}>
         <h1 className={styles.header}>RESULTS</h1>
