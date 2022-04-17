@@ -5,7 +5,7 @@ import { Home } from "../components/home1/home"
 export default function Web() {
   
   return (
-    <div style={{width:''}}>
+    <div style={{margin: 0}}>
       {/* <div > */}
         {/* <div style={{position: "absolute",
   backgroundColor: "rgba(0,0,0,.4)", overflow: "hidden", top:0, right:0, height: "100%", width:"100%" }}></div> */}
