@@ -6,6 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "docker:dev_web": "docker-compose --profile dev_web -p test-web up --build",
+    "docker:prod_web": "docker-compose --profile prod_web -p hackdartmouth-2022-web up --build",
+    "gcp:push": "docker push us-east4-docker.pkg.dev/sodium-cat-347501/test-client/web",
     "export": "next export",
     "lint": "next lint"
   },
