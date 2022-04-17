@@ -1,0 +1,42 @@
+.page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header{
+    // font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: black;
+    width: 100%;
+    background-color: lightblue;
+    text-align: center;
+    font-size: 3em;
+    padding: 10px;
+    margin: 0;
+}
+
+.input{
+    border-style: none;
+    background-color: lightgray;
+    font-size: 2em;
+}
+
+.submit{
+    align-self: center;
+    width: 100px;
+    border-style: none;
+    padding: 10px;
+    background-color: lightblue;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.ranks {
+    width: 100%;
+}
+
+.rankTitle {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}

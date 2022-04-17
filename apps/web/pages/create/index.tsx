@@ -5,7 +5,8 @@ export default function Create() {
   return (
     <div>
       <h1>Your room code is:</h1>
-      <Button />
+      <Button 
+        text='test'/>
     </div>
   );
 }

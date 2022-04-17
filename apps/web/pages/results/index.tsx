@@ -1,11 +1,10 @@
 import React from "react";
-import { Button } from "ui";
+import { Result } from "../../components/results";
 
 export default function Results() {
   return (
     <div>
-      <h1>Web</h1>
-      <Button />
+      <Result />
     </div>
   );
 }
