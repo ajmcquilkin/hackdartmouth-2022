@@ -9,7 +9,8 @@
     "build": "tsc --outDir ./dist",
     "prod": "yarn build; node dist/index.js",
     "docker:dev_server": "docker-compose --profile dev_server -p test up --build",
-    "docker:prod_server": "docker-compose --profile prod_server -p prod1 up --build"
+    "docker:prod_server": "docker-compose --profile prod_server -p hackdartmouth-2022-server up --build",
+    "gcp:push": "docker push us-east4-docker.pkg.dev/sodium-cat-347501/test-server/server"
   },
   "dependencies": {
     "axios": "^0.26.1",

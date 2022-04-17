@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { AppProps } from 'next/app';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -18,10 +19,12 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 
-const CustomAppWrapper = ({ Component, pageProps }: AppProps) => (
-    <Provider store={store}>
-        <Component {...pageProps} />
-    </Provider>
-);
+const CustomAppWrapper = ({ Component, pageProps }: AppProps) => {
+    return (
+        <Provider store={store}>
+            <Component {...pageProps} />
+        </Provider>
+    );
+};
 
 export default CustomAppWrapper;

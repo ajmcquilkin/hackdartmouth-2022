@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-export const ROOT_URL = "";
-export const REQUEST_TIMEOUT = 5; // s
+export const ROOT_URL = "http://localhost:9090";
+export const REQUEST_TIMEOUT = 5000; // ms
 
 export const createBackendAxiosRequest = async <D>(
   config: AxiosRequestConfig,
