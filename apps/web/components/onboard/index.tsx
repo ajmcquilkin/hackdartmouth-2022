@@ -1,8 +1,18 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
+import { hostStartRequest } from "../../store/actionCreators/socketActionCreators";
 import styles from "./onboard.module.scss";
 export const Onboard = () => {
+    const dispatch = useDispatch();
+    
+    const handleSubmit = () => {
+        console.log("dispatching");
+        dispatch(hostStartRequest());
+    };  
+    
   return(
     <div className={styles.page}>
+        <button type="button" onClick={handleSubmit}>button click me</button>
         <h1 className={styles.title}>Let&apos;s find some eats!</h1>
         <div className={styles.form}>
             <div className={styles.field}>

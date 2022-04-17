@@ -1,16 +1,12 @@
-// @ts-nocheck
-import io, { Socket } from 'socket.io-client';
+import { Socket } from 'socket.io-client';
 import { eventChannel, EventChannel } from 'redux-saga';
 
 import { Actions } from 'schema';
 
 import { broadcastStart, userDone, userJoin, votingDone } from '../store/actionCreators/socketActionCreators';
-import { ROOT_URL } from '.';
 
-const socketClient = io(`${ROOT_URL}`);
-
-export const hostStart = () => {
-    socketClient.emit("HOSTSTART", "");
+export const hostStart = (socket: Socket) => {
+    socket.emit("HOSTSTART");
 };
 
 export type ChannelCreator<T = unknown> = (socket: Socket) => EventChannel<T>;
@@ -18,33 +14,35 @@ export type ChannelCreator<T = unknown> = (socket: Socket) => EventChannel<T>;
 export const createSocketChannel: ChannelCreator<Actions> = (socket) => eventChannel(
     (pushToChannel) => {
         const userJoinHandler = (payload: string) => {
+            console.log("user join");
             pushToChannel(userJoin(payload));
         };
 
         const broadcastStartHandler = () => {
+            console.log("broadcast start", broadcastStart());
             pushToChannel(broadcastStart());
         };
 
         const userDoneHandler = () => {
+            console.log("user done");
             pushToChannel(userDone());
         };
 
         const votingDoneHandler = () => {
+            console.log("voting done");
             pushToChannel(votingDone());
         };
 
-        socket.on<SocketEvents>("USERJOIN", userJoinHandler);
-        socket.on<SocketEvents>("BROADCASTSTART", broadcastStartHandler);
-        socket.on<SocketEvents>("USERDONE", userDoneHandler);
-        socket.on<SocketEvents>("VOTINGDONE", votingDoneHandler);
+        socket.on("USERJOIN", userJoinHandler);
+        socket.on("BROADCASTSTART", broadcastStartHandler);
+        socket.on("USERDONE", userDoneHandler);
+        socket.on("VOTINGDONE", votingDoneHandler);
 
         return () => {
-            socket.off<SocketEvents>("USERJOIN", userJoinHandler);
-            socket.off<SocketEvents>("BROADCASTSTART", broadcastStartHandler);
-            socket.off<SocketEvents>("USERDONE", userDoneHandler);
-            socket.off<SocketEvents>("VOTINGDONE", votingDoneHandler);
+            socket.off("USERJOIN", userJoinHandler);
+            socket.off("BROADCASTSTART", broadcastStartHandler);
+            socket.off("USERDONE", userDoneHandler);
+            socket.off("VOTINGDONE", votingDoneHandler);
         };
     }
 );
-
-export { socketClient };
