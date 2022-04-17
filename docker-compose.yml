@@ -9,7 +9,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - "./apps/server/src:/app/src"
+      - "./apps/server/src:/app/server/src"
     env_file:
       - "./apps/server/.env"
 
@@ -17,7 +17,7 @@ services:
     profiles: ["prod_server"]
     build:
       context: .
-      target: dev_server
+      target: prod_server
     restart: unless-stopped
     ports:
       - "80:80"
@@ -36,7 +36,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - "./apps/web/src:/app/src"
+      - "./apps/web/src:/app/web/src"
 
   prod_web:
     profiles: ["prod_web"]

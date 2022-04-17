@@ -4,41 +4,38 @@ WORKDIR /app
 COPY package*.json yarn.lock ./
 
 FROM base AS dev_server
-RUN yarn install --frozen-lockfile
 COPY . .
 WORKDIR /app/apps/server
+RUN yarn install --frozen-lockfile
 CMD [ "yarn", "dev" ]
 
-# FROM base AS builder
-# RUN npm ci
-# COPY src src
-# COPY webpack* .
-# COPY .eslintrc.json .
-# COPY .babelrc .
-# COPY tsconfig.json .
-# RUN npm run build
-
-FROM base AS prod_server
-# this still installs all the non-dev dependencies; removing react etc would be better
-RUN yarn install --frozen-lockfile
+FROM base AS prod_server_builder
+RUN apk add bash
+RUN yarn global add node-prune
 COPY . .
 WORKDIR /app/apps/server
-CMD [ "yarn", "prod" ]
+RUN yarn install --frozen-lockfile --no-cache
+RUN /usr/local/bin/node-prune
+
+FROM base as prod_server
+COPY --from=prod_server_builder /app /app
+WORKDIR /app/apps/server
+CMD [ "yarn", "start" ]
 
 FROM base as dev_web
 RUN apk add --no-cache libc6-compat
-RUN yarn install --frozen-lockfile
+RUN yarn global add @swc/cli @swc/core
 COPY . .
 WORKDIR /app/apps/web
-RUN yarn add @swc/cli @swc/core
+RUN yarn install --frozen-lockfile
 CMD [ "yarn", "dev" ]
 
 FROM base as prod_web_builder
 RUN apk add --no-cache libc6-compat
-RUN yarn install --frozen-lockfile
+RUN yarn global add @swc/cli @swc/core
 COPY . .
 WORKDIR /app/apps/web
-RUN yarn add @swc/cli @swc/core
+RUN yarn install --frozen-lockfile
 RUN yarn build
 
 FROM node:17-alpine as prod_web

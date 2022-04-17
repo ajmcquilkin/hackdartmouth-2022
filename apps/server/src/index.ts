@@ -6,8 +6,8 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 
-import roomRouter from 'routers/roomRouter'
-import yelpRouter from 'routers/yelpRouter'
+import roomRouter from 'routers/roomRouter';
+import yelpRouter from 'routers/yelpRouter';
 
 // General initialization
 
