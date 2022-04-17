@@ -17,11 +17,11 @@ export interface IRoom {
 export const getAllRooms: RequestHandler = async (req, res, next) => {
     try {
         await redisClient.connect();
-        
+
         const TEST_KEY = "test_key"
         await setJSON(TEST_KEY, { node: 4303 });
         const value = await getJSON<any>(TEST_KEY);
-        
+
         res.json(value);
     } catch (error) {
         next(error);
@@ -32,7 +32,7 @@ export const createRoom: RequestHandler = async (req, res, next) => {
     try {
         const roomId = uuid();
 
-        const message = await setJSON<IRoom>(roomId, { 
+        const message = await setJSON<IRoom>(roomId, {
             id: roomId,
             hostId: "adam",
             participants: [ "one", "two" ],
@@ -74,7 +74,7 @@ export const joinRoom: RequestHandler = async (req, res, next) => {
 
 // export const updateRoomById: RequestHandler = async (req, res, next) => {
 //     try {
-        
+
 //     } catch (error) {
 //         next(error);
 //     }
@@ -82,7 +82,7 @@ export const joinRoom: RequestHandler = async (req, res, next) => {
 
 // export const deleteRoomById: RequestHandler = async (req, res, next) => {
 //     try {
-        
+
 //     } catch (error) {
 //         next(error);
 //     }

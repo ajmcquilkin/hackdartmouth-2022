@@ -1,6 +1,7 @@
 import { response } from "express";
 import { RequestHandler } from 'express';
-
+import dotenv from 'dotenv';
+dotenv.config();
 type Settings = {
     location: string;
     categories: string[];
@@ -19,7 +20,7 @@ type SearchRequest = {
 const yelp = require('yelp-fusion')
 const client = yelp.client(process.env.API_KEY);
 
-const ex_response = {
+export const ex_response = {
     location: 'south san francisco, ca',
     categories: ['Chinese', 'Mexican'],
     price: '1,2,3,4',
@@ -30,7 +31,7 @@ const ex_response = {
 const global_limit = ex_response.limit;
 
 // Get response
-function handle_response(searchRequest: Settings) {
+export function handle_response(searchRequest: Settings) {
     let categories: string[] = searchRequest.categories;
 
     return Promise.all(
@@ -43,8 +44,8 @@ function handle_response(searchRequest: Settings) {
         }))
         .map(get_list))
         .then(combine_list)
-        .then(console.log)
-        .catch(console.log)
+        // .then((thing) => console.dir(thing, {depth:null}))
+        // .catch(console.log)
 }
 
 // Combine list of responses
@@ -54,8 +55,6 @@ function get_list(searchRequest: Object) {
     .then((res: { jsonBody: any; }) => {
         // console.log(res.jsonBody)
         return res.jsonBody
-    }).catch ((e: any) => {
-        console.log(e);
     })
 }
 
@@ -64,18 +63,12 @@ function combine_list(combined: any[]) {
     return combined.flatMap(response => response.businesses).slice(0,global_limit);
 }
 
-
-export const createRoom: RequestHandler = async (req, res, next) => {
+export const giveRestaurants: RequestHandler = async (req, res, next) => {
     try {
 
-        const message = await setJSON<IRoom>(roomId, {
-            id: roomId,
-            hostId: "adam",
-            participants: [ "one", "two" ],
-            restaurants: []
-        });
+        const restaurants = await handle_response(req.body)
+        res.json(restaurants);
 
-        res.json({ message, id: roomId });
     } catch (error) {
         next(error);
     }

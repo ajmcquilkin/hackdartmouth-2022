@@ -4,6 +4,6 @@ import * as yelpController from '../controllers/yelpController';
 const router = express();
 
 router.route("/")
-    .post(yelpController.handle_response);
+    .post(yelpController.giveRestaurants);
 
 export default router;
