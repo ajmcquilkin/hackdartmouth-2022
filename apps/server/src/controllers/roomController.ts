@@ -4,19 +4,19 @@ import { IRoom, IRestaurant } from 'schema';
 
 import { redisClient, getJSON, setJSON } from '../redisClient';
 
-export const getAllRooms: RequestHandler = async (req, res, next) => {
-    try {
-        await redisClient.connect();
+// export const getAllRooms: RequestHandler = async (req, res, next) => {
+//     try {
+//         await redisClient.connect();
         
-        const TEST_KEY = "test_key"
-        await setJSON(TEST_KEY, { node: 4303 });
-        const value = await getJSON<any>(TEST_KEY);
+//         const TEST_KEY = "test_key"
+//         await setJSON(TEST_KEY, { node: 4303 });
+//         const value = await getJSON<any>(TEST_KEY);
         
-        res.json(value);
-    } catch (error) {
-        next(error);
-    }
-};
+//         res.json(value);
+//     } catch (error) {
+//         next(error);
+//     }
+// };
 
 export const createRoom: RequestHandler = async (req, res, next) => {
     try {

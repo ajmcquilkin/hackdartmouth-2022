@@ -4,7 +4,7 @@ import * as roomController from '../controllers/roomController';
 const router = express();
 
 router.route("/")
-    .get(roomController.getAllRooms)
+    // .get(roomController.getAllRooms)
     .post(roomController.createRoom);
 
 router.route("/:id")
