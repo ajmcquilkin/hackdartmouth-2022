@@ -1,10 +1,10 @@
 FROM node:17-alpine as base
 RUN apk add yarn
 WORKDIR /app
-COPY package*.json ./
+COPY package*.json yarn.lock ./
 
 FROM base AS dev_server
-RUN yarn install
+RUN yarn install --frozen-lockfile
 COPY . .
 WORKDIR /app/apps/server
 CMD [ "yarn", "dev" ]
@@ -20,7 +20,7 @@ CMD [ "yarn", "dev" ]
 
 FROM base AS prod_server
 # this still installs all the non-dev dependencies; removing react etc would be better
-RUN yarn install
+RUN yarn install --frozen-lockfile
 COPY . .
 WORKDIR /app/apps/server
 CMD [ "yarn", "prod" ]

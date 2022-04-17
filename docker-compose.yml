@@ -25,4 +25,4 @@ services:
       - "./apps/server/.env"
     environment:
       - PORT=80
-    image: jeffzyliu/hackdartmouth-2022-server
+    image: us-east4-docker.pkg.dev/sodium-cat-347501/test-server/server
