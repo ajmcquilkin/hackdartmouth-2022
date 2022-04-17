@@ -5,8 +5,9 @@ import { eventChannel, EventChannel } from 'redux-saga';
 import { Actions } from 'schema';
 
 import { broadcastStart, userDone, userJoin, votingDone } from '../store/actionCreators/socketActionCreators';
+import { ROOT_URL } from '.';
 
-const socketClient = io('URL');
+const socketClient = io(`${ROOT_URL}`);
 
 export const hostStart = () => {
     socketClient.emit("HOSTSTART", "");
@@ -36,6 +37,13 @@ export const createSocketChannel: ChannelCreator<Actions> = (socket) => eventCha
         socket.on<SocketEvents>("BROADCASTSTART", broadcastStartHandler);
         socket.on<SocketEvents>("USERDONE", userDoneHandler);
         socket.on<SocketEvents>("VOTINGDONE", votingDoneHandler);
+
+        return () => {
+            socket.off<SocketEvents>("USERJOIN", userJoinHandler);
+            socket.off<SocketEvents>("BROADCASTSTART", broadcastStartHandler);
+            socket.off<SocketEvents>("USERDONE", userDoneHandler);
+            socket.off<SocketEvents>("VOTINGDONE", votingDoneHandler);
+        };
     }
 );
 

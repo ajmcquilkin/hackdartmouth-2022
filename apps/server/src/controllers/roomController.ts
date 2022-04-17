@@ -1,7 +1,6 @@
 import { RequestHandler } from 'express';
 import { v4 as uuid } from 'uuid';
 import { IRoom, IRestaurant } from 'schema';
-import { HostStartEvent, UserJoinLobbyEvent, UserJoinLobbyPayload } from "schema/src/sockets";
 
 import { getJSON, setJSON } from '../redisClient';
 
@@ -25,15 +24,18 @@ import "schema";
 export const createRoom: RequestHandler = async (req, res, next) => {
     try {
         const roomId = uuid();
+        const { hostId } = req.body;
+        if (!hostId) { res.status(400).json({ message: "Bad request"}); return; }
 
-        const message = await setJSON<IRoom>(roomId, {
+        const room: IRoom = {
             id: roomId,
-            hostId: "adam",
-            participants: [ "one", "two" ],
+            hostId: hostId,
+            participants: [],
             restaurants: []
-        });
+        };
 
-        res.json({ message, id: roomId });
+        await setJSON<IRoom>(roomId, room);
+        res.json({ room });
     } catch (error) {
         next(error);
     }
@@ -42,7 +44,7 @@ export const createRoom: RequestHandler = async (req, res, next) => {
 export const getRoomById: RequestHandler = async (req, res, next) => {
     try {
         const room = await getJSON<IRoom>(req.params.id);
-        res.json(room);
+        res.json({ room });
     } catch (error) {
         next(error);
     }
@@ -58,10 +60,10 @@ export const joinRoom: RequestHandler = async (req, res, next) => {
         let message = "NO CHANGE";
         if (!room.participants.includes(uid)) {
             message = await setJSON<IRoom>(req.params.id, { ...room, participants: [...room.participants, uid] });
-            socketServer.emit(HostStartEvent, uid);
+            socketServer.emit("HOSTSTART", uid);
         }
 
-        res.json({ message });
+        res.json({ room, message });
     } catch (error) {
         next(error);
     }

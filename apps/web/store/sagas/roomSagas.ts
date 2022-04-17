@@ -1,12 +1,27 @@
 import { all, call, takeLatest } from "redux-saga/effects";
 
 import { IRoom } from "schema";
-import { FetchRoomRequest, JoinRoomRequest } from "schema/src/store/room";
+import { CreateRoomRequest, FetchRoomRequest, JoinRoomRequest } from "schema/src/store/room";
 
-import { fetchRoomSuccess, fetchRoomFailure, joinRoomSuccess, joinRoomFailure } from "../actionCreators/roomActionCreators";
+import {
+    fetchRoomSuccess, fetchRoomFailure,
+    joinRoomSuccess, joinRoomFailure,
+    createRoomSuccess, createRoomFailure
+} from "../actionCreators/roomActionCreators";
 import * as roomService from "../../services/roomService";
-import { selectStatus, typedPut as put } from "./helpers";
 
+import { typedPut as put } from "./helpers";
+
+function* createRoomWorker(action: CreateRoomRequest) {
+    if (action.status !== 'REQUEST') return;
+    
+    try {
+        const result: IRoom = yield call(roomService.createRoom, action.hostId);
+        yield put(createRoomSuccess(result));
+    } catch (error) {
+        yield put(createRoomFailure((error as Error).message));
+    }
+}
 
 function* fetchRoomWorker(action: FetchRoomRequest) {
     if (action.status !== 'REQUEST') return;
@@ -21,6 +36,8 @@ function* fetchRoomWorker(action: FetchRoomRequest) {
 
 function* joinRoomWorker(action: JoinRoomRequest) {
     if (action.status !== 'REQUEST') return;
+
+    console.log('saga',action);
     
     try {
         const result: IRoom = yield call(roomService.joinRoom, action.roomId, action.uid);
@@ -32,8 +49,9 @@ function* joinRoomWorker(action: JoinRoomRequest) {
 
 function* roomSaga() {
     yield all([
+        takeLatest('CREATE_ROOM', createRoomWorker),
         takeLatest('FETCH_ROOM', fetchRoomWorker),
-        takeLatest('JOIN_ROOM', fetchRoomWorker),
+        takeLatest('JOIN_ROOM', joinRoomWorker),
     ]);
 }
 
