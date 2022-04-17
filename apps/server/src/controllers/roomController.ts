@@ -1,18 +1,8 @@
 import { RequestHandler } from 'express';
 import { v4 as uuid } from 'uuid';
+import { IRoom, IRestaurant } from 'schema';
 
 import { redisClient, getJSON, setJSON } from '../redisClient';
-
-export interface IRestaurant {
-
-};
-
-export interface IRoom {
-    id: string;
-    hostId: string;
-    participants: string[];
-    restaurants: IRestaurant[];
-};
 
 // export const getAllRooms: RequestHandler = async (req, res, next) => {
 //     try {
