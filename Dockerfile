@@ -14,7 +14,7 @@ RUN apk add bash
 RUN yarn global add node-prune
 COPY . .
 WORKDIR /app/apps/server
-RUN yarn install --frozen-lockfile --no-cache
+RUN yarn install --frozen-lockfile
 RUN /usr/local/bin/node-prune
 
 FROM base as prod_server
