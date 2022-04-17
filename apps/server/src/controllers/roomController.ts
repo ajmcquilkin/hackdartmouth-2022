@@ -60,7 +60,7 @@ export const joinRoom: RequestHandler = async (req, res, next) => {
         let message = "NO CHANGE";
         if (!room.participants.includes(uid)) {
             message = await setJSON<IRoom>(req.params.id, { ...room, participants: [...room.participants, uid] });
-            socketServer.emit("HOSTSTART", uid);
+            socketServer.emit("USERJOIN", uid);
         }
 
         res.json({ room, message });

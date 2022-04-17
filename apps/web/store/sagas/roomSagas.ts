@@ -37,8 +37,6 @@ function* fetchRoomWorker(action: FetchRoomRequest) {
 function* joinRoomWorker(action: JoinRoomRequest) {
     if (action.status !== 'REQUEST') return;
 
-    console.log('saga',action);
-    
     try {
         const result: IRoom = yield call(roomService.joinRoom, action.roomId, action.uid);
         yield put(joinRoomSuccess(result));
