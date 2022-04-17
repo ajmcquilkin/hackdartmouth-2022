@@ -1,4 +1,5 @@
 import React from "react";
+import { Result } from "../../components/results";
 import { useSelector } from "react-redux";
 import { RootAppState } from "schema";
 import { Button } from "ui";
@@ -8,9 +9,10 @@ export default function Results() {
   
   return (
     <div>
+      <Result />
       <h1>Web</h1>
       {results
-        ? <p>results</p>
+        ? <Result />
         : <p>waiting on others</p>}
       <Button />
     </div>
