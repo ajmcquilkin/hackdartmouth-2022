@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 
 import roomRouter from 'routers/roomRouter'
+import yelpRouter from 'routers/yelpRouter'
 
 // General initialization
 
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/room", roomRouter);
+app.use("/yelp", yelpRouter);
 
 app.use((req, res)=>{
     res.status(404).json({ message:"Page not found"});
@@ -37,7 +39,6 @@ socketServer.on("connection", (socket) => {
 });
 
 // Server initialization
-
 const server = app.listen(process.env.PORT);
 console.log(`listening on: ${process.env.PORT}`);
 export default server;
