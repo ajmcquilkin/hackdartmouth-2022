@@ -10,7 +10,7 @@ router.route("/")
 router.route("/:id")
     .get(roomController.getRoomById)
     .post(roomController.joinRoom)
-    // .patch(roomController.updateRoomById)
+    .put(roomController.updateRoomById)
     // .delete(roomController.deleteRoomById);
 
 export default router;

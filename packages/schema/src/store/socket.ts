@@ -7,7 +7,7 @@ export const USER_DONE = 'USER_DONE';
 export const VOTING_DONE = 'VOTING_DONE';
 export const SOCKET_ERROR = 'SOCKET_ERROR';
 
-export type HostStartRequest = AppActionBase<typeof HOST_START, 'REQUEST'> & {};
+export type HostStartRequest = AppActionBase<typeof HOST_START, 'REQUEST'> & { roomId: string };
 export type HostStartSuccess = AppActionBase<typeof HOST_START, 'SUCCESS'> & {};
 export type HostStartFailure = AppActionBase<typeof HOST_START, 'FAILURE'> & { message: string };
 

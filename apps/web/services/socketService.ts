@@ -5,8 +5,8 @@ import { Actions } from 'schema';
 
 import { broadcastStart, userDone, userJoin, votingDone } from '../store/actionCreators/socketActionCreators';
 
-export const hostStart = (socket: Socket) => {
-    socket.emit("HOSTSTART");
+export const hostStart = (socket: Socket, roomId: string) => {
+    socket.emit("HOSTSTART", roomId);
 };
 
 export type ChannelCreator<T = unknown> = (socket: Socket) => EventChannel<T>;
