@@ -3,15 +3,7 @@ import styles from "./selection.module.scss";
 import { Button, Ranking } from "ui";
 
 export const Selection = (props: any) => {
-  const [selection, setSelection] = useState(0);
-
-  const getSelection = (props: any) => {
-    setSelection(props);
-    console.log(selection);
   
-    // Go to next selection
-    // GET RESULTS HERE
-  }
 
   return(
     <div className={styles.page}>
@@ -27,12 +19,14 @@ export const Selection = (props: any) => {
             {/* <p className={styles.trait}>Allergies</p> */}
                 <img style={{borderRadius: '10px', maxHeight:'14em', overflow:'true'}}src={props.imageUrl} alt={'image'}/>
         </div>
-        <Button
+          <Button
                 text="Veto"
                 backgroundColor= "lightred"
-                /> 
+                onClick={props.vetoed}
+          /> 
             <Ranking
-              getRank={getSelection}/>
+              id = {props.id}
+              getRank={props.getSelection}/>
     </div>
   )
 };
