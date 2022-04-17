@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  dev_server:
+    profiles: ["dev_server"]
+    build:
+      context: .
+      target: dev_server
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - "./apps/server/src:/app/src"
+    env_file:
+      - "./apps/server/.env"
+
+  prod_server:
+    profiles: ["prod_server"]
+    build:
+      context: .
+      target: dev_server
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    env_file:
+      - "./apps/server/.env"
+    environment:
+      - PORT=80
+    image: jeffzyliu/hackdartmouth-2022-server
