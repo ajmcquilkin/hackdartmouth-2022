@@ -17,13 +17,13 @@ export const createSocketServer = (app: Express.Application) => {
             
             socketServer.emit("BROADCASTSTART");
             
-            setTimeout(() => {
-                socketServer.emit("USERDONE");
-            }, 5000);
+            // setTimeout(() => {
+            //     socketServer.emit("USERDONE");
+            // }, 5000);
             
-            setTimeout(() => {
-                socketServer.emit("VOTINGDONE");
-            }, 10000);
+            // setTimeout(() => {
+            //     socketServer.emit("VOTINGDONE");
+            // }, 10000);
         });
         
         socket.onAny((event, ...args) => console.log(event, args));

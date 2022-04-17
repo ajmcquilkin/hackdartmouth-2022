@@ -13,9 +13,13 @@ export default function Group() {
   const room = useSelector((state: RootAppState) => !!state.room.currentRoom);
   const done = useSelector((state: RootAppState) => !!state.room.currentRoom?.done);
 
+  // useEffect(() => {
+  //   if (done) router.push("/selections");
+  // }, [done, router]);
+
   useEffect(() => {
-    if (done) router.push("/results");
-  }, [done, router]);
+    if (started) router.push("/selection");
+  }, [started, router]);
 
   const handleGameEdit = () => {
     router.push("/onboard");

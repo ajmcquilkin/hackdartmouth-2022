@@ -62,11 +62,9 @@ export const joinRoom: RequestHandler = async (req, res, next) => {
 
         const room = await getJSON<IRoom>(req.params.id);
 
-        let message = "NO CHANGE";
-        if (!room.participants.includes(uid)) {
-            message = await setJSON<IRoom>(req.params.id, { ...room, participants: [...room.participants, uid] });
-            socketServer.emit("USERJOIN", uid);
-        }
+        const newRoom = { ...room, participants: [...room.participants, uid] };
+        const message = await setJSON<IRoom>(req.params.id, newRoom);
+        socketServer.emit("USERJOIN", uid);
 
         res.json({ room, message });
     } catch (error) {
@@ -77,10 +75,25 @@ export const joinRoom: RequestHandler = async (req, res, next) => {
 export const updateRoomById: RequestHandler = async (req, res, next) => {
     try {
         try {
-            const { room } = req.body;
+            const { room }: { room: IRoom } = req.body;
             if (!room) { res.status(400).send("Bad request"); return; }
     
             await setJSON<IRoom>(req.params.id, room);
+            console.log(room.reviews.length, room.participants.length);
+            if (room.reviews.length >= 1) {
+                const res = new Map<string, number>();
+                for (const person of room.reviews) {
+                    for (const [key, val] of Object.entries(person)) {
+                        const curr = res.get(key) ?? 0;
+                        res.set(key, curr + val);
+                    }
+                }
+                const sorted = Array.from(res).sort((a,b) => a[1] - b[1]);
+                console.log(sorted);
+                
+                // const results = room.reviews.map(r)
+                socketServer.emit("VOTINGDONE", sorted);
+            }
             res.json({ room });
         } catch (error) {
             next(error);

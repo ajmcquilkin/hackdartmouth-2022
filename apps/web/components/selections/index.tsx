@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , } from "react";
 import styles from "./selection.module.scss";
 import { Button, Ranking } from "ui";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Selection } from "./selection";
 import { useRouter } from "next/router";
+import { IRoom, RootAppState } from "schema";
+
+
+import { updateRoomRequest } from "../../store/actionCreators/roomActionCreators";
 
 
 export const Selections = (props: any) => {
@@ -322,13 +326,14 @@ export const Selections = (props: any) => {
   
 
   const dispatch = useDispatch();
+  const room = useSelector((state: RootAppState) => state.room.currentRoom);
 
   const [ratings, setRatings] = useState({});
   const [selection, setSelection] = useState(0);
 
 
-  const getSelection = (id: string, number: number) => {
-    setRatings({...ratings, [id]:number})
+  const getSelection = (id: string, n: number) => {
+    setRatings({...ratings, [id]: n})
     // setSelection(props);
     console.log(ratings);
   
@@ -350,7 +355,12 @@ export const Selections = (props: any) => {
 
 
   const handleResults = () => {
-    // dispatch(createRoomRequest(hostId));
+      console.log('ratings', ratings);
+      const newRoom: IRoom = {
+          ...room,
+          reviews: [...room?.reviews ?? [], ratings]
+      } as IRoom;
+    dispatch(updateRoomRequest(newRoom));
     router.push("/results");
   };
 
@@ -358,18 +368,20 @@ export const Selections = (props: any) => {
     <div className={styles.page}>
         {rest2.map((data : any) => (
             <Selection
-              name={data.name}
-              location={data.location.display_address[0]}
-              category={data.categories?.[0]?.title}
-              price={data.price}
-              imageUrl={data.image_url}
-              id={data.id}
-              vetoed={vetoed}
-              getSelection={getSelection}
-              />
+                name={data.name}
+                location={data.location.display_address[0]}
+                category={data.categories?.[0]?.title}
+                price={data.price}
+                imageUrl={data.image_url}
+                id={data.id}
+                vetoed={vetoed}
+                getSelection={getSelection}
+                />
         ))}
 
-        {Object.keys(ratings).length >= rest2.length ? handleResults():null}
+        {/* <>{Object.keys(ratings).length >= rest2.length ? handleResults():null}</> */}
+
+        <button type="button" onClick={handleResults}>submit</button>
     </div>
   )
 };

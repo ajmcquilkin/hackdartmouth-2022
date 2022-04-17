@@ -10,6 +10,7 @@ export const Ranking = (props: any) => {
       {ranks.map((data, i) => (
         <Choice
           number={data}
+          id={props.id}
           func={props.getRank}/>
         ))}
       
