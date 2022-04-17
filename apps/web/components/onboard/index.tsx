@@ -3,7 +3,7 @@ import styles from "./onboard.module.scss";
 export const Onboard = () => {
   return(
     <div className={styles.page}>
-        <h1 className={styles.title}>Let's find some eats!</h1>
+        <h1 className={styles.title}>Let&apos;s find some eats!</h1>
         <div className={styles.form}>
             <div className={styles.field}>
                 <h2>Code</h2>
