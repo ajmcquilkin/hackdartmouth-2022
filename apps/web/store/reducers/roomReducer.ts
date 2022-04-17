@@ -25,7 +25,7 @@ const reducer = (state = initialState, action: Actions): IRoomReducerState => {
                     done: true,
                 } : null
             });
-        case "HOST_START":
+        case "BROADCAST_START":
             return ({
                 ...state,
                 currentRoom: state.currentRoom ? {

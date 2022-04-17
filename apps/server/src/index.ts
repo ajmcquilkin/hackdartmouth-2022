@@ -40,6 +40,6 @@ app.use((req, res)=>{
 // Server initialization
 const server = app.listen(process.env.PORT);
 console.log(`listening on: ${process.env.PORT}`);
-export default server;
-
 createSocketServer(server);
+
+export default server;

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { hostStartRequest } from "../../store/actionCreators/socketActionCreators";
 import styles from "./onboard.module.scss";
 import { Button, Input, Ranking, Lobby } from "ui";
 
@@ -9,6 +11,13 @@ export const Onboard = () => {
     const [maxChoices, setMaxChoices] = useState('');
     const [price, setPrice] = useState('');
 
+    const dispatch = useDispatch();
+    
+    const handleSubmit = () => {
+        console.log("dispatching");
+        dispatch(hostStartRequest());
+    };  
+  
   return(
     <div className={styles.page}>
         <h1 className={styles.title}>Let's Find Some Eats!</h1>
