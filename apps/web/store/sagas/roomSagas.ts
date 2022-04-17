@@ -9,6 +9,8 @@ import { selectStatus, typedPut as put } from "./helpers";
 
 
 function* fetchRoomWorker(action: FetchRoomRequest) {
+    if (action.status !== 'REQUEST') return;
+    
     try {
         const result: IRoom = yield call(roomService.fetchRoom, action.roomId);
         yield put(fetchRoomSuccess(result));
@@ -18,6 +20,8 @@ function* fetchRoomWorker(action: FetchRoomRequest) {
 }
 
 function* joinRoomWorker(action: JoinRoomRequest) {
+    if (action.status !== 'REQUEST') return;
+    
     try {
         const result: IRoom = yield call(roomService.joinRoom, action.roomId, action.uid);
         yield put(joinRoomSuccess(result));
@@ -27,10 +31,10 @@ function* joinRoomWorker(action: JoinRoomRequest) {
 }
 
 function* roomSaga() {
-    // yield all([
-    //     takeLatest(selectStatus('FETCH_ROOM'), fetchRoomWorker),
-    //     takeLatest(selectStatus('JOIN_ROOM'), fetchRoomWorker),
-    // ]);
+    yield all([
+        takeLatest('FETCH_ROOM', fetchRoomWorker),
+        takeLatest('JOIN_ROOM', fetchRoomWorker),
+    ]);
 }
 
 export default roomSaga;

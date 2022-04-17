@@ -6,8 +6,11 @@ import { Actions } from "schema";
 import { hostStartSuccess, hostStartFailure, socketError } from "../actionCreators/socketActionCreators";
 import * as socketService from "../../services/socketService";
 import { selectStatus, typedPut as put } from "./helpers";
+import { HostStartRequest } from "schema/src/store/socket";
 
-function* hostStartWorker() {
+function* hostStartWorker(action: HostStartRequest) {
+    if (action.status !== 'REQUEST') return;
+
     try {
         yield call(socketService.hostStart);
         yield put(hostStartSuccess());
