@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { RootAppState } from "schema";
 import { Button } from "ui";
 
 export default function Create() {
-  const code = useSelector((state) => state.room.currentRoom?.id);
+  const code = useSelector((state: RootAppState) => state.room.currentRoom?.id);
   
   return (
     <div>
